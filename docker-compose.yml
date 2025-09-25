@@ -1,0 +1,5 @@
+services:
+  la-lonja:
+    build: .
+    ports:
+      - "9104:9104" 

@@ -1,0 +1,28 @@
+'use client';
+
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from '@/theme';
+import DashboardLayout from '@/components/DashboardLayout';
+import { useEffect, useState } from 'react';
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <DashboardLayout>
+        {children}
+      </DashboardLayout>
+    </ThemeProvider>
+  );
+} 
