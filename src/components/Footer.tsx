@@ -76,7 +76,7 @@ export default function Footer() {
               <Typography variant="body2" sx={{ mb: 1, opacity: 0.9 }}>
                 Dirección: <Link href="https://maps.app.goo.gl/9SsZxqY9Mf1RFfAv8" target="_blank" sx={{ color: '#fff', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>CRA 53 64-98 LOCAL 1 B/quilla</Link>
               </Typography>
-              <Link href="https://activosporcolombia.dataprotected.co/" sx={{ color: '#fff', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>
+              <Link href="/terminos-condiciones" sx={{ color: '#fff', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>
                 <Typography variant="body2" sx={{ mb: 1, opacity: 0.9 }}>
                   Terminos y condiciones
                 </Typography>
