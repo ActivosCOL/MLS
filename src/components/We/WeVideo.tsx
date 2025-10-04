@@ -68,7 +68,7 @@ const WeVideo = () => {
                         color: "#193255",
                     }}
                 >
-                    Por más de una década, hemos trabajado para dignificar y elevar el nivel del corretaje inmobiliario en Colombia.
+                    Más que un MLS, somos la fuerza que transforma el corretaje inmobiliario en Colombia.
                 </Typography>
             </Box>
 

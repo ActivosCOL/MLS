@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Box,
   Typography,
@@ -27,6 +28,14 @@ const StyledSwiper = styled(Swiper)`
   padding: 20px;
   margin: 0 auto;
   max-width: calc(100% - 80px);
+  display: flex;
+  justify-content: center;
+
+  .swiper-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   @media (max-width: 600px) {
     max-width: 100%;
@@ -65,9 +74,26 @@ const API_URL =
 // Imagen por defecto si no carga la original
 const fallbackImage = "/banners/NO-DISPONIBLE.png";
 
+// Logos locales estáticos
+const localLogos = [
+  {
+    id: 'carolina-guzman',
+    name: 'Carolina Guzmán',
+    image: '/logo/BROKER_CAROLINA_GUZMAN.jpeg',
+    website: undefined
+  },
+  {
+    id: 'camargo-agon',
+    name: 'Camargo y Agón',
+    image: '/logo/INMOBILIARIA_CAMARGO_Y_ AGON.jpeg',
+    website: undefined
+  }
+];
+
 const CompanyCarousel = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const router = useRouter();
 
   const [companies, setCompanies] = useState<
     { id: number; name: string; image: string; website?: string }[]
@@ -98,13 +124,22 @@ const CompanyCarousel = () => {
         maxWidth: "1200px",
         margin: "0 auto",
         overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
       <StyledTitle variant={isMobile ? "h4" : "h2"}>
         Empresas que confían en nosotros
       </StyledTitle>
 
-      <StyledSwiper
+      <Box sx={{ 
+        width: "100%", 
+        display: "flex", 
+        justifyContent: "center",
+        paddingLeft: { xs: "20px", md: "40px" }
+      }}>
+        <StyledSwiper
         modules={[Navigation, Autoplay]}
         spaceBetween={30}
         slidesPerView={isMobile ? 1 : 4}
@@ -115,6 +150,50 @@ const CompanyCarousel = () => {
         }}
         loop={true}
       >
+        {/* Logos locales estáticos */}
+        {localLogos.map((logo) => (
+          <SwiperSlide key={logo.id}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "180px",
+                width: "100%",
+                cursor: "pointer",
+                margin: "0 auto",
+              }}
+              title="Aliados Brokers"
+              onClick={() => {
+                router.push('/about-us');
+              }}
+            >
+              <Box
+                component="img"
+                src={logo.image}
+                alt={logo.name}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = fallbackImage;
+                }}
+                sx={{
+                  maxWidth: "180px",
+                  maxHeight: "180px",
+                  width: "auto",
+                  height: "auto",
+                  objectFit: "contain",
+                  filter: "grayscale(100%)",
+                  transition: "filter 0.3s ease",
+                  display: "block",
+                  "&:hover": {
+                    filter: "grayscale(0%)",
+                  },
+                }}
+              />
+            </Box>
+          </SwiperSlide>
+        ))}
+        
         {isLoading
           ? Array.from({ length: isMobile ? 1 : 4 }).map((_, index) => (
               <SwiperSlide key={`skeleton-${index}`}>
@@ -177,9 +256,16 @@ const CompanyCarousel = () => {
                 </Box>
               </SwiperSlide>
             ))}
-      </StyledSwiper>
+        </StyledSwiper>
+      </Box>
     </Box>
   );
 };
 
 export default CompanyCarousel;
+
+
+
+
+
+
