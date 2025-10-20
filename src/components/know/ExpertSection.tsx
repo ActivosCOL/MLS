@@ -122,7 +122,7 @@ const ExpertSection = () => {
                 >
                     <Button
                         variant="contained"
-                        onClick={() => router.push('/formulario-registro')}
+                        onClick={() => window.open('https://activosporcolombia.com/tramites/formulario/formulario_broker', '_blank')}
                         sx={{
                             backgroundColor: '#FFAA00',
                             color: '#151555',

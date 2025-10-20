@@ -18,6 +18,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://activosporcolombia.com'),
   title: "MLS | Red Inmobiliaria MLS en Colombia",
   description:
     "Bienvenido a La Lonja, la MLS que impulsa el corretaje profesional en Colombia. Únete a la red de brokers más grande del país y accede a tecnología, confianza y negocios compartidos.",
