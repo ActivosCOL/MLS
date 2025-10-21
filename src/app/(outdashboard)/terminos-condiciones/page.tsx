@@ -117,7 +117,7 @@ export default function TerminosCondicionesPage() {
     return (
         <PrincipalLayout>
             <Box sx={{ minHeight: '100vh', backgroundColor: '#ffffff' }}>
-                {/* Header simplificado */}
+                {/* Header responsivo */}
                 <Paper
                     elevation={2}
                     sx={{
@@ -131,11 +131,18 @@ export default function TerminosCondicionesPage() {
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'space-between',
-                                py: 2,
-                                gap: 2
+                                py: { xs: 1.5, md: 2 },
+                                gap: { xs: 1, md: 2 },
+                                flexDirection: { xs: 'column', sm: 'row' }
                             }}
                         >
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                            <Box sx={{ 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                gap: { xs: 1, md: 2 },
+                                width: { xs: '100%', sm: 'auto' },
+                                justifyContent: { xs: 'space-between', sm: 'flex-start' }
+                            }}>
                                 <IconButton
                                     onClick={() => router.back()}
                                     sx={{
@@ -143,102 +150,189 @@ export default function TerminosCondicionesPage() {
                                         color: 'white',
                                         '&:hover': {
                                             backgroundColor: theme.palette.primary.dark,
-                                        }
+                                        },
+                                        minWidth: { xs: 40, md: 48 },
+                                        height: { xs: 40, md: 48 }
                                     }}
                                 >
-                                    <ArrowBackIcon />
+                                    <ArrowBackIcon fontSize={isMobile ? 'small' : 'medium'} />
                                 </IconButton>
-                                <Typography variant="h5" fontWeight="bold">
+                                <Typography 
+                                    variant={isMobile ? 'h6' : 'h5'} 
+                                    fontWeight="bold"
+                                    sx={{ 
+                                        fontSize: { xs: '1.1rem', md: '1.5rem' },
+                                        textAlign: { xs: 'center', sm: 'left' }
+                                    }}
+                                >
                                     Términos y Condiciones
                                 </Typography>
                             </Box>
 
-                            <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                                <IconButton
-                                    onClick={handleDownload}
-                                    title="Descargar PDF"
-                                    sx={{
-                                        backgroundColor: theme.palette.secondary.main,
-                                        color: 'white',
-                                        '&:hover': {
-                                            backgroundColor: theme.palette.secondary.dark,
-                                        }
-                                    }}
-                                >
-                                    <DownloadIcon />
-                                </IconButton>
+                            <Box sx={{ 
+                                display: 'flex', 
+                                gap: 1, 
+                                alignItems: 'center',
+                                width: { xs: '100%', sm: 'auto' },
+                                justifyContent: { xs: 'center', sm: 'flex-end' },
+                                mt: { xs: 1, sm: 0 }
+                            }}>
+                                {/* Botón de descarga removido del header */}
                             </Box>
                         </Box>
                     </Container>
                 </Paper>
 
                 {/* Título Principal */}
-                <Container maxWidth="lg" sx={{ py: 3 }}>
-                    <Box sx={{ textAlign: 'center', mb: 4 }}>
+                <Container maxWidth="lg" sx={{ py: { xs: 2, md: 3 } }}>
+                    <Box sx={{ textAlign: 'center', mb: { xs: 2, md: 4 } }}>
                         <Typography 
-                            variant="h3" 
+                            variant={isMobile ? 'h4' : 'h3'}
                             fontWeight="bold" 
-                            sx={{ color: '#193255' }}
-                            gutterBottom
+                            sx={{ 
+                                color: '#193255',
+                                fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
+                                mb: { xs: 1, md: 2 }
+                            }}
                         >
                             Términos y Condiciones
                         </Typography>
                         <Typography 
-                            variant="h6" 
+                            variant={isMobile ? 'body1' : 'h6'}
                             color="text.secondary"
-                            sx={{ maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}
+                            sx={{ 
+                                maxWidth: { xs: '100%', md: '600px' }, 
+                                mx: 'auto', 
+                                lineHeight: 1.6,
+                                fontSize: { xs: '0.9rem', sm: '1rem', md: '1.25rem' },
+                                px: { xs: 2, md: 0 }
+                            }}
                         >
                             Documento oficial de términos y condiciones de la Red de Brokers
                         </Typography>
                     </Box>
                 </Container>
 
-                {/* PDF Viewer */}
-                <Container maxWidth="lg" sx={{ pb: 3 }}>
-                    <Paper
-                        elevation={3}
-                        sx={{
-                            overflow: 'hidden',
-                            borderRadius: 2,
-                            backgroundColor: '#fff'
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                width: '100%',
-                                height: isMobile ? '75vh' : '85vh',
-                                backgroundColor: '#f8f9fa'
-                            }}
-                        >
-                            <iframe
-                                id="pdf-viewer"
-                                src={`${pdfPath}#toolbar=1&navpanes=1&scrollbar=1&view=FitH&zoom=100`}
-                                width="100%"
-                                height="100%"
-                                style={{
-                                    border: 'none'
-                                }}
-                                title="Términos y Condiciones PDF"
-                            />
-                        </Box>
-                    </Paper>
-
-                    {/* Información adicional */}
-                    <Box sx={{ mt: 3, textAlign: 'center' }}>
-                        <Typography variant="body2" color="text.secondary">
-                            Si tienes problemas para visualizar el documento, puedes{' '}
-                            <a
-                                href={pdfPath}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                    color: theme.palette.primary.main,
-                                    textDecoration: 'none'
+                {/* Botón de Descarga Centrado - Solo en móvil */}
+                {isMobile && (
+                    <Container maxWidth="lg" sx={{ py: 2 }}>
+                        <Box sx={{ 
+                            display: 'flex', 
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <IconButton
+                                onClick={handleDownload}
+                                title="Descargar PDF"
+                                sx={{
+                                    backgroundColor: theme.palette.secondary.main,
+                                    color: 'white',
+                                    width: 60,
+                                    height: 60,
+                                    '&:hover': {
+                                        backgroundColor: theme.palette.secondary.dark,
+                                        transform: 'scale(1.05)',
+                                    },
+                                    transition: 'all 0.2s ease-in-out',
+                                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
                                 }}
                             >
-                                abrirlo en una nueva pestaña
-                            </a>
-                            {' '}o descargarlo directamente.
+                                <DownloadIcon sx={{ fontSize: '1.5rem' }} />
+                            </IconButton>
+                        </Box>
+                    </Container>
+                )}
+
+                {/* PDF Viewer - Solo en desktop */}
+                {!isMobile && (
+                    <Container maxWidth="lg" sx={{ pb: { xs: 2, md: 3 }, px: { xs: 1, md: 2 } }}>
+                        <Paper
+                            elevation={3}
+                            sx={{
+                                overflow: 'hidden',
+                                borderRadius: { xs: 1, md: 2 },
+                                backgroundColor: '#fff'
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    height: { 
+                                        xs: '60vh', 
+                                        sm: '70vh', 
+                                        md: '75vh', 
+                                        lg: '80vh' 
+                                    },
+                                    backgroundColor: '#f8f9fa',
+                                    position: 'relative'
+                                }}
+                            >
+                                <iframe
+                                    id="pdf-viewer"
+                                    src={`${pdfPath}#toolbar=1&navpanes=1&scrollbar=1&view=FitH&zoom=100`}
+                                    width="100%"
+                                    height="100%"
+                                    style={{
+                                        border: 'none',
+                                        minHeight: '400px'
+                                    }}
+                                    title="Términos y Condiciones PDF"
+                                />
+                            </Box>
+                        </Paper>
+                    </Container>
+                )}
+
+                {/* Información adicional */}
+                <Container maxWidth="lg" sx={{ pb: { xs: 2, md: 3 } }}>
+                    <Box sx={{ 
+                        mt: { xs: 2, md: 3 }, 
+                        textAlign: 'center',
+                        px: { xs: 2, md: 0 }
+                    }}>
+                        <Typography 
+                            variant="body2" 
+                            color="text.secondary"
+                            sx={{
+                                fontSize: { xs: '0.8rem', sm: '0.875rem' },
+                                lineHeight: 1.5
+                            }}
+                        >
+                            {isMobile ? (
+                                <>
+                                    Para ver el documento completo,{' '}
+                                    <a
+                                        href={pdfPath}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style={{
+                                            color: theme.palette.primary.main,
+                                            textDecoration: 'none',
+                                            fontWeight: '500'
+                                        }}
+                                    >
+                                        ábrelo en una nueva pestaña
+                                    </a>
+                                    {' '}o descárgalo directamente.
+                                </>
+                            ) : (
+                                <>
+                                    Si tienes problemas para visualizar el documento, puedes{' '}
+                                    <a
+                                        href={pdfPath}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style={{
+                                            color: theme.palette.primary.main,
+                                            textDecoration: 'none',
+                                            fontWeight: '500'
+                                        }}
+                                    >
+                                        abrirlo en una nueva pestaña
+                                    </a>
+                                    {' '}o descargarlo directamente.
+                                </>
+                            )}
                         </Typography>
                     </Box>
                 </Container>
