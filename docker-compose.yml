@@ -1,5 +1,21 @@
 services:
   la-lonja:
     build: .
+    container_name: la-lonja
     ports:
-      - "9104:9104" 
+      - "9105:9104"
+    restart: unless-stopped
+    # Límites de recursos (evita que consuma todo el host)
+    mem_limit: 1g
+    mem_reservation: 256m
+    cpus: 1.5
+    # Seguridad: no escalar privilegios, no privilegiado
+    security_opt:
+      - no-new-privileges:true
+    # Healthcheck: si falla, Docker puede reiniciar el contenedor
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:9104/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s

@@ -4,11 +4,7 @@ set -euo pipefail   # New: detenerse ante cualquier error o variable no definida
 # Declara nuevas variables en inglés
 DEPLOY_DIR="$(pwd)"
 
-# New: traer y forzar la última versión del repositorio
-echo "Obteniendo últimos cambios de Git..."
-git fetch origin
-git reset --hard origin/main
-
+# Despliega con el código actual del directorio (sin fetch ni reset de Git)
 if [ -f docker-compose.yml ]; then
     echo "Usando docker-compose para el despliegue..."
     docker-compose pull            # New: bajar última imagen si la usas
@@ -25,7 +21,7 @@ else
     echo "Ejecutando el contenedor..."
     docker run -d \
         --name la-lonja \
-        -p 9104:9104 \
+        -p 9105:9104 \
         --restart unless-stopped \
         la-lonja:latest
 fi
